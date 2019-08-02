@@ -69,10 +69,14 @@ app.get("/displayKeywords", async function(req, res){
 	var conn = tools.createConnection();
 	var sql = "SELECT DISTINCT keyword FROM favorites ORDER BY keyword";
 	
+	
 	conn.connect(function(err){
 		if (err) throw err;
 		conn.query(sql, function(err, result){
 			if (err) throw err;
+			
+			
+			
 			res.render("favorites", {"rows": result, "imageURLs":imageURLs})
 		});
 	});
@@ -96,13 +100,13 @@ app.get("/api/displayFavorites", function(req, res){
 
 
 // Heroku server listener
-app.listen(process.env.PORT, process.env.IP, function(){
-	console.log("Running Express Server..")
-});
-
-
-// server listener
-//app.listen("8081", "0.0.0.0", function(){
-//	console.log("Express Server running...")
+//app.listen(process.env.PORT, process.env.IP, function(){
+//	console.log("Running Express Server..")
 //});
+
+
+// offline server listener
+app.listen("8081", "0.0.0.0", function(){
+	console.log("Express Server running...")
+});
 

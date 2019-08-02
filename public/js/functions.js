@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	
 	$(".favoriteIcon").on("click", function(){
-		
 		//alert($(this).prev().attr("src"));
 		
 		var imageURL = $(this).prev().attr("src");
@@ -28,10 +27,23 @@ $(document).ready(function(){
 				},
 			success: function(rows, status){
 				
-				$("#favorites").html("");
+				$("#favoritesArea").html("");
 				rows.forEach(function(row){
-					$("#favorites").append("<img class='image' src='"+row.imageURL+"' width='200' height='200'/>");
-					$("#favorites").append("<img class='favoriteIcon' src='img/fav_on.png' width='20'/>");
+					$("#favoritesArea").append("<img class='image' src='"+row.imageURL+"' width='200' height='200'/>");
+					$("#favoritesArea").append("<img class='favoriteIcon' src='img/fav_on.png' width='20'/>");
+				})
+				
+				$(".favoriteIcon").on("click", function(){
+					var imageURL = $(this).prev().attr("src");
+					
+					if ($(this).attr("src") == "img/fav_off.png"){
+						$(this).attr("src","img/fav_on.png");
+						updateFavorite("add", imageURL);
+					}
+					else {
+						$(this).attr("src","img/fav_off.png");
+						updateFavorite("delete", imageURL);
+					}		
 				})
 			}
 		});
